@@ -1,0 +1,4 @@
+devMode=true
+jdbcUrl=jdbc:mysql://localhost/mykancolle
+user=root
+password=jayfans3
