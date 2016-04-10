@@ -14,15 +14,7 @@ import us.sunrisemorning.mykancolle.gadgets.GadgetsRoutes;
 import us.sunrisemorning.mykancolle.index.IndexRoutes;
 import us.sunrisemorning.mykancolle.kcsapi.KcsapiRoutes;
 import us.sunrisemorning.mykancolle.kcscontents.KcscontentsRoutes;
-import us.sunrisemorning.mykancolle.model.EquipInfo;
-import us.sunrisemorning.mykancolle.model.EquipType;
-import us.sunrisemorning.mykancolle.model.Furniture;
-import us.sunrisemorning.mykancolle.model.Incentive;
-import us.sunrisemorning.mykancolle.model.ShipEquipType;
-import us.sunrisemorning.mykancolle.model.ShipGraph;
-import us.sunrisemorning.mykancolle.model.ShipInfo;
-import us.sunrisemorning.mykancolle.model.ShipType;
-import us.sunrisemorning.mykancolle.model.User;
+import us.sunrisemorning.mykancolle.model._MappingKit;
 import us.sunrisemorning.mykancolle.social.SocialRoutes;
 
 public class MainConfig extends JFinalConfig {
@@ -48,15 +40,7 @@ public class MainConfig extends JFinalConfig {
         me.add(cp);
         ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
         me.add(arp);
-        arp.addMapping("user", User.class);
-        arp.addMapping("incentive", Incentive.class);
-        arp.addMapping("ship_info", ShipInfo.class);
-        arp.addMapping("ship_graph", ShipGraph.class);
-        arp.addMapping("equip_type", EquipType.class);
-        arp.addMapping("ship_type", ShipType.class);
-        arp.addMapping("ship_equip_type", ShipEquipType.class);
-        arp.addMapping("equip_info", EquipInfo.class);
-        arp.addMapping("furniture", Furniture.class);
+        _MappingKit.mapping(arp);
     }
 
     @Override
@@ -67,4 +51,8 @@ public class MainConfig extends JFinalConfig {
     public void configHandler(Handlers me) {
     }
 
+    @Override
+    public void afterJFinalStart() {
+        GameData.init("start2.json");
+    }
 }
