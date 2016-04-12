@@ -16,11 +16,22 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
+		arp.addMapping("basic", "member_id", Basic.class);
+		// Composite Primary Key order: id,member_id
+		arp.addMapping("deck", "id,member_id", Deck.class);
 		// Composite Primary Key order: id,user
 		arp.addMapping("furniture", "id,user", Furniture.class);
 		arp.addMapping("incentive", "id", Incentive.class);
 		// Composite Primary Key order: id,user
 		arp.addMapping("kdock", "id,user", Kdock.class);
+		arp.addMapping("log", "id", Log.class);
+		// Composite Primary Key order: id,member_id
+		arp.addMapping("material", "id,member_id", Material.class);
+		// Composite Primary Key order: id,member_id
+		arp.addMapping("ndock", "id,member_id", Ndock.class);
+		arp.addMapping("params", "user", Params.class);
+		// Composite Primary Key order: id,user
+		arp.addMapping("ship", "id,user", Ship.class);
 		// Composite Primary Key order: id,user
 		arp.addMapping("slotitem", "id,user", Slotitem.class);
 		// Composite Primary Key order: id,user

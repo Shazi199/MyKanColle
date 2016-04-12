@@ -14,6 +14,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public class GameData {
     private static JSONObject data;
+    private static Map<Integer, JSONObject> shipData;
     private static Map<Integer, JSONObject> slotitemData;
     private static Map<Integer, JSONObject> slotitemEquiptypeData;
     private static String outputData;
@@ -24,6 +25,7 @@ public class GameData {
         try {
             String json = br.readLine();
             data = JSON.parseObject(json);
+            initShipData(data);
             initSlotitemData(data);
             initSlotitemEquiptypeData(data);
         } catch (IOException e) {
@@ -32,7 +34,16 @@ public class GameData {
         String jsonStr = JSON.toJSONString(data, SerializerFeature.BrowserCompatible);
         outputData = "svdata=" + jsonStr;
     }
-    
+
+    private static void initShipData(JSONObject data) {
+        shipData = new HashMap<Integer, JSONObject>();
+        JSONArray items = data.getJSONObject("api_data").getJSONArray("api_mst_ship");
+        for (int i = 0; i < items.size(); i++) {
+            JSONObject item = items.getJSONObject(i);
+            shipData.put(item.getInteger("api_id"), item);
+        }
+    }
+
     private static void initSlotitemData(JSONObject data) {
         slotitemData = new HashMap<Integer, JSONObject>();
         JSONArray items = data.getJSONObject("api_data").getJSONArray("api_mst_slotitem");
@@ -41,7 +52,7 @@ public class GameData {
             slotitemData.put(item.getInteger("api_id"), item);
         }
     }
-    
+
     private static void initSlotitemEquiptypeData(JSONObject data) {
         slotitemEquiptypeData = new HashMap<Integer, JSONObject>();
         JSONArray items = data.getJSONObject("api_data").getJSONArray("api_mst_slotitem_equiptype");
@@ -57,6 +68,10 @@ public class GameData {
 
     public static String getOutputData() {
         return outputData;
+    }
+
+    public static Map<Integer, JSONObject> getShipData() {
+        return shipData;
     }
 
     public static Map<Integer, JSONObject> getSlotitemData() {
