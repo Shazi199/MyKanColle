@@ -44,7 +44,7 @@ public class Ship extends BaseShip<Ship> {
 
     public Integer getSrate() {
         // TODO:需要完成
-        return 1;
+        return 0;
     }
     
     public Integer getLeng() {
