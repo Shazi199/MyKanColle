@@ -33,4 +33,12 @@ public abstract class BaseParams<M extends BaseParams<M>> extends Model<M> imple
 		return get("parallel_quest_count");
 	}
 
+	public void setMax_preset_deck(java.lang.Integer max_preset_deck) {
+		set("max_preset_deck", max_preset_deck);
+	}
+
+	public java.lang.Integer getMax_preset_deck() {
+		return get("max_preset_deck");
+	}
+
 }

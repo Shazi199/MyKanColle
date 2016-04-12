@@ -30,6 +30,8 @@ public class _MappingKit {
 		// Composite Primary Key order: id,member_id
 		arp.addMapping("ndock", "id,member_id", Ndock.class);
 		arp.addMapping("params", "user", Params.class);
+		// Composite Primary Key order: preset_no,user
+		arp.addMapping("preset_deck", "preset_no,user", PresetDeck.class);
 		// Composite Primary Key order: id,user
 		arp.addMapping("ship", "id,user", Ship.class);
 		// Composite Primary Key order: id,user
