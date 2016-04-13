@@ -10,6 +10,7 @@ public class KcsapiRoutes extends Routes {
         add("kcsapi/api_req_member", ApiReqMemberController.class);
         add("kcsapi/api_get_member", ApiGetMemberController.class);
         add("kcsapi/api_port", ApiPortController.class);
+        add("kcsapi/api_req_kousyou", ApiReqKousyou.class);
     }
 
 }

@@ -22,8 +22,8 @@ public class _MappingKit {
 		// Composite Primary Key order: id,user
 		arp.addMapping("furniture", "id,user", Furniture.class);
 		arp.addMapping("incentive", "id", Incentive.class);
-		// Composite Primary Key order: id,user
-		arp.addMapping("kdock", "id,user", Kdock.class);
+		// Composite Primary Key order: id,member_id
+		arp.addMapping("kdock", "id,member_id", Kdock.class);
 		arp.addMapping("log", "id", Log.class);
 		// Composite Primary Key order: id,member_id
 		arp.addMapping("material", "id,member_id", Material.class);

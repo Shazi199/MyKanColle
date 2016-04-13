@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import us.sunrisemorning.mykancolle.config.GameData;
 import us.sunrisemorning.mykancolle.model.Furniture;
 import us.sunrisemorning.mykancolle.model.Kdock;
+import us.sunrisemorning.mykancolle.model.Material;
 import us.sunrisemorning.mykancolle.model.Params;
 import us.sunrisemorning.mykancolle.model.PresetDeck;
 import us.sunrisemorning.mykancolle.model.Slotitem;
@@ -37,6 +38,24 @@ public class ApiGetMemberController extends ApiController {
         Params param = Params.dao.findById(u.getId());
         result.put("max_num", param.getMax_preset_deck());
         result.put("deck", getPresetDeck(u.getId()));
+
+        renderApiJson(result);
+    }
+
+    public void kdock() {
+        User u = getCurrentUser();
+
+        JSONArray result = new JSONArray();
+        result.addAll(getKdock(u.getId()));
+
+        renderApiJson(result);
+    }
+
+    public void material() {
+        User u = getCurrentUser();
+
+        JSONArray result = new JSONArray();
+        result.addAll(getMaterial(u.getId()));
 
         renderApiJson(result);
     }
@@ -88,7 +107,7 @@ public class ApiGetMemberController extends ApiController {
     }
 
     private List<Kdock> getKdock(long userId) {
-        List<Kdock> kdockList = Kdock.dao.find("select id,state,created_ship_id,complete_time,complete_time_str,item1,item2,item3,item4,item5 from Kdock where user=?", userId);
+        List<Kdock> kdockList = Kdock.dao.find("select id,state,created_ship_id,complete_time,complete_time_str,item1,item2,item3,item4,item5 from Kdock where member_id=?", userId);
         return kdockList;
     }
 
@@ -100,5 +119,10 @@ public class ApiGetMemberController extends ApiController {
     private List<Furniture> getFurniture(long userId) {
         List<Furniture> furnitureList = Furniture.dao.find("select id,furniture_type,furniture_no,furniture_id from Furniture where user=?", userId);
         return furnitureList;
+    }
+
+    public List<Material> getMaterial(long userId) {
+        List<Material> result = Material.dao.find("select * from Material where member_id=?", userId);
+        return result;
     }
 }

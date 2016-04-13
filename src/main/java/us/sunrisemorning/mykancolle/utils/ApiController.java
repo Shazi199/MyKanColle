@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jfinal.core.Controller;
 
@@ -17,7 +16,7 @@ public abstract class ApiController extends Controller {
         return User.dao.findFirst("select * from user where token=?", getPara("api_token"));
     }
     
-    public void renderApiJson(JSONObject data) {
+    public void renderApiJson(JSON data) {
         renderApi(data);
     }
     

@@ -17,12 +17,12 @@ public abstract class BaseKdock<M extends BaseKdock<M>> extends Model<M> impleme
 		return get("id");
 	}
 
-	public void setUser(java.lang.Long user) {
-		set("user", user);
+	public void setMember_id(java.lang.Long member_id) {
+		set("member_id", member_id);
 	}
 
-	public java.lang.Long getUser() {
-		return get("user");
+	public java.lang.Long getMember_id() {
+		return get("member_id");
 	}
 
 	public void setState(java.lang.Integer state) {
@@ -41,11 +41,11 @@ public abstract class BaseKdock<M extends BaseKdock<M>> extends Model<M> impleme
 		return get("created_ship_id");
 	}
 
-	public void setComplete_time(java.lang.Integer complete_time) {
+	public void setComplete_time(java.lang.Long complete_time) {
 		set("complete_time", complete_time);
 	}
 
-	public java.lang.Integer getComplete_time() {
+	public java.lang.Long getComplete_time() {
 		return get("complete_time");
 	}
 
