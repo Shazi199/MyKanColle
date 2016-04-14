@@ -15,8 +15,40 @@ public class Deck extends BaseDeck<Deck> {
         return new Long[] { getMission1(), getMission2(), getMission3(), getMission4() };
     }
 
-    public Integer[] getShip() {
-        return new Integer[] { getShip1(), getShip2(), getShip3(), getShip4(), getShip5(), getShip6() };
+    public Long[] getShip() {
+        return new Long[] { getShip1(), getShip2(), getShip3(), getShip4(), getShip5(), getShip6() };
+    }
+
+    /**
+     * 从舰队中移除某一艘船
+     * 
+     * @param shipIdx
+     *            舰队中的位置
+     */
+    public void removeShipFromDeck(int shipIdx) {
+        if (shipIdx < 1 || shipIdx > 6) {
+            return;
+        }
+        for (int i = shipIdx; i < 6; i++) {
+            this.set("ship" + i, this.get("ship" + (i + 1)));
+        }
+        this.set("ship6", -1);
+    }
+
+    /**
+     * 查找某一艘船在舰队中的位置
+     * 
+     * @param shipId
+     *            船的ID
+     * @return 舰队的位置,-1则表示不在舰队中
+     */
+    public int findShipIdxByShipId(long shipId) {
+        for (int i = 1; i <= 6; i++) {
+            if (shipId == this.getLong("ship" + i)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @JSONField(serialize = false)
@@ -45,37 +77,37 @@ public class Deck extends BaseDeck<Deck> {
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip1() {
+    public Long getShip1() {
         return super.getShip1();
     }
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip2() {
+    public Long getShip2() {
         return super.getShip2();
     }
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip3() {
+    public Long getShip3() {
         return super.getShip3();
     }
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip4() {
+    public Long getShip4() {
         return super.getShip4();
     }
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip5() {
+    public Long getShip5() {
         return super.getShip5();
     }
 
     @JSONField(serialize = false)
     @Override
-    public Integer getShip6() {
+    public Long getShip6() {
         return super.getShip6();
     }
 }

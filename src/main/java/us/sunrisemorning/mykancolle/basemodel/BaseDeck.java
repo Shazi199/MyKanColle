@@ -81,51 +81,51 @@ public abstract class BaseDeck<M extends BaseDeck<M>> extends Model<M> implement
 		return get("mission4");
 	}
 
-	public void setShip1(java.lang.Integer ship1) {
+	public void setShip1(java.lang.Long ship1) {
 		set("ship1", ship1);
 	}
 
-	public java.lang.Integer getShip1() {
+	public java.lang.Long getShip1() {
 		return get("ship1");
 	}
 
-	public void setShip2(java.lang.Integer ship2) {
+	public void setShip2(java.lang.Long ship2) {
 		set("ship2", ship2);
 	}
 
-	public java.lang.Integer getShip2() {
+	public java.lang.Long getShip2() {
 		return get("ship2");
 	}
 
-	public void setShip3(java.lang.Integer ship3) {
+	public void setShip3(java.lang.Long ship3) {
 		set("ship3", ship3);
 	}
 
-	public java.lang.Integer getShip3() {
+	public java.lang.Long getShip3() {
 		return get("ship3");
 	}
 
-	public void setShip4(java.lang.Integer ship4) {
+	public void setShip4(java.lang.Long ship4) {
 		set("ship4", ship4);
 	}
 
-	public java.lang.Integer getShip4() {
+	public java.lang.Long getShip4() {
 		return get("ship4");
 	}
 
-	public void setShip5(java.lang.Integer ship5) {
+	public void setShip5(java.lang.Long ship5) {
 		set("ship5", ship5);
 	}
 
-	public java.lang.Integer getShip5() {
+	public java.lang.Long getShip5() {
 		return get("ship5");
 	}
 
-	public void setShip6(java.lang.Integer ship6) {
+	public void setShip6(java.lang.Long ship6) {
 		set("ship6", ship6);
 	}
 
-	public java.lang.Integer getShip6() {
+	public java.lang.Long getShip6() {
 		return get("ship6");
 	}
 

@@ -3,12 +3,15 @@ package us.sunrisemorning.mykancolle.kcsapi;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
 import us.sunrisemorning.mykancolle.config.GameData;
+import us.sunrisemorning.mykancolle.model.Deck;
 import us.sunrisemorning.mykancolle.model.Kdock;
+import us.sunrisemorning.mykancolle.model.Material;
 import us.sunrisemorning.mykancolle.model.Ship;
 import us.sunrisemorning.mykancolle.model.User;
 import us.sunrisemorning.mykancolle.utils.ApiController;
@@ -76,7 +79,7 @@ public class ApiReqKousyou extends ApiController {
 
         renderApiJson(result);
     }
-    
+
     public void createship_speedchange() {
         User u = getCurrentUser();
 
@@ -86,16 +89,38 @@ public class ApiReqKousyou extends ApiController {
         dock.setComplete_time(0l);
         dock.setComplete_time_str("0");
         dock.update();
-        
+
         renderApiJson(null);
+    }
+
+    public void destroyship() {
+        User u = getCurrentUser();
+
+        Long ship_id = getParaToLong("api_ship_id");
+        Ship.dao.deleteById(ship_id, u.getId());
+        List<Deck> decks = Deck.dao.find("select * from deck where member_id=?", u.getId());
+        for (int i = 0; i < decks.size(); i++) {
+            Deck deck = decks.get(i);
+            int shipIdx = deck.findShipIdxByShipId(ship_id);
+            if (shipIdx > 0) {
+                deck.removeShipFromDeck(shipIdx);
+                deck.update();
+            }
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("material", getMaterial(u.getId()));
+        renderApiJson(result);
     }
 
     private int randomShipId(boolean isLarge) {
         // TODO:需要完成工厂建造的随机算法
         if (isLarge) {
-            return 131;
+            int[] shipId = new int[] { 131, 143, 153, 442, 441, 171};
+            return shipId[RandomUtils.nextInt(0, shipId.length)];
         } else {
-            return 421;
+            int[] shipId = new int[] { 421, 346, 357, 353, 176, 182, 155};
+            return shipId[RandomUtils.nextInt(0, shipId.length)];
         }
     }
 
@@ -103,16 +128,16 @@ public class ApiReqKousyou extends ApiController {
         // TODO:需要完成工厂新建舰娘数据
         JSONObject shipData = GameData.getShipData().get(shipId);
 
-        int shipCount = Ship.dao.find("select id from Ship where user=?", userId).size() + 1;
+        Long shipCount = Ship.dao.findFirst("select id from Ship where user=? order by id desc", userId).getId() + 1;
         Ship ship = new Ship();
         ship.setId(new Long(shipCount));
         ship.setUser(userId);
-        ship.setSortno(shipCount);
+        ship.setSortno(shipCount.intValue());
         ship.setShip_id(shipId);
         ship.setLv(1);
         ship.setExp_total(0);
         ship.setNowhp(shipData.getJSONArray("api_taik").getInteger(0));
-        ship.setMaxhp(shipData.getJSONArray("api_taik").getInteger(1));
+        ship.setMaxhp(shipData.getJSONArray("api_taik").getInteger(0));
         ship.setSlot1(-1);
         ship.setSlot2(-1);
         ship.setSlot3(-1);
@@ -157,5 +182,14 @@ public class ApiReqKousyou extends ApiController {
     private List<Kdock> getKdock(long userId) {
         List<Kdock> kdockList = Kdock.dao.find("select id,state,created_ship_id,complete_time,complete_time_str,item1,item2,item3,item4,item5 from Kdock where member_id=?", userId);
         return kdockList;
+    }
+
+    public Integer[] getMaterial(long userId) {
+        List<Material> result = Material.dao.find("select value from Material where member_id=? and id>=1 and id<=4 order by id", userId);
+        Integer[] materials = new Integer[4];
+        for (int i = 0; i < result.size(); i++) {
+            materials[i] = result.get(i).getValue();
+        }
+        return materials;
     }
 }
