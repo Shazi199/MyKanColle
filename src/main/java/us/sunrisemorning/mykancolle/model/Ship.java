@@ -13,6 +13,57 @@ import us.sunrisemorning.mykancolle.config.GameData;
 public class Ship extends BaseShip<Ship> {
     public static final Ship dao = new Ship();
 
+    public Ship generateShip(int shipId, long userId) {
+        // TODO:需要完成新建舰娘方法
+        JSONObject shipData = getShipData(shipId);
+
+        Ship last = Ship.dao.findFirst("select id from Ship where user=? order by id desc", userId);
+        Long shipCount = (last == null ? 0 : last.getId()) + 1;
+        Ship ship = new Ship();
+        ship.setId(new Long(shipCount));
+        ship.setUser(userId);
+        ship.setSortno(shipCount.intValue());
+        ship.setShip_id(shipId);
+        ship.setLv(1);
+        ship.setExp_total(0);
+        ship.setNowhp(shipData.getJSONArray("api_taik").getInteger(0));
+        ship.setMaxhp(shipData.getJSONArray("api_taik").getInteger(0));
+        ship.setSlot1(-1);
+        ship.setSlot2(-1);
+        ship.setSlot3(-1);
+        ship.setSlot4(-1);
+        ship.setSlot5(-1);
+        ship.setOnslot1(0);
+        ship.setOnslot2(0);
+        ship.setOnslot3(0);
+        ship.setOnslot4(0);
+        ship.setOnslot5(0);
+        ship.setSlot_ex(0);
+        ship.setKyouka1(0);
+        ship.setKyouka2(0);
+        ship.setKyouka3(0);
+        ship.setKyouka4(0);
+        ship.setKyouka5(0);
+        ship.setFuel(shipData.getInteger("api_fuel_max"));
+        ship.setBull(shipData.getInteger("api_bull_max"));
+        ship.setSlotnum(shipData.getInteger("api_slot_num"));
+        ship.setNdock_time(0);
+        ship.setNdock_item1(0);
+        ship.setNdock_item2(0);
+        ship.setCond(40);
+        ship.setKaryoku1(shipData.getJSONArray("api_houg").getInteger(0));
+        ship.setRaisou1(shipData.getJSONArray("api_raig").getInteger(0));
+        ship.setTaiku1(shipData.getJSONArray("api_tyku").getInteger(0));
+        ship.setSoukou1(shipData.getJSONArray("api_souk").getInteger(0));
+        ship.setKaihi1(10);
+        ship.setTaisen1(10);
+        ship.setSakuteki1(10);
+        ship.setLucky1(shipData.getJSONArray("api_luck").getInteger(0));
+        ship.setLocked(0);
+        ship.setLocked_equip(0);
+        return ship;
+    }
+
     private JSONObject getShipData(Integer id) {
         return GameData.getShipData().get(id);
     }
@@ -46,7 +97,7 @@ public class Ship extends BaseShip<Ship> {
         // TODO:需要完成
         return 0;
     }
-    
+
     public Integer getLeng() {
         // TODO:需要完成
         return this.getShipData(getShip_id()).getInteger("api_leng");

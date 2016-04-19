@@ -25,6 +25,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("username");
 	}
 
+	public void setUserpass(java.lang.String userpass) {
+		set("userpass", userpass);
+	}
+
+	public java.lang.String getUserpass() {
+		return get("userpass");
+	}
+
 	public void setToken(java.lang.String token) {
 		set("token", token);
 	}

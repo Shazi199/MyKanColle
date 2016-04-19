@@ -7,5 +7,13 @@ import us.sunrisemorning.mykancolle.basemodel.BaseMaterial;
  */
 @SuppressWarnings("serial")
 public class Material extends BaseMaterial<Material> {
-	public static final Material dao = new Material();
+    public static final Material dao = new Material();
+
+    public Material generateMaterial(int id, long userId, int value) {
+        Material material = new Material();
+        material.setId(new Long(id));
+        material.setMember_id(userId);
+        material.setValue(value);
+        return material;
+    }
 }

@@ -12,11 +12,14 @@ public class ApiReqMemberController extends ApiController {
      * 登录时获得的奖励提示
      */
     public void get_incentive() {
-        List<Incentive> lists = Incentive.dao.find("select mode,type,mst_id,getmes from Incentive where user=?", getCurrentUser().getId());
+        List<Incentive> lists = Incentive.dao.find("select id,mode,type,mst_id,getmes from Incentive where user=?", getCurrentUser().getId());
         JSONObject data = new JSONObject();
         data.put("count", lists.size());
         if (lists.size() > 0) {
             data.put("item", lists);
+            for (Incentive i : lists) {
+                i.delete();
+            }
         }
         renderApiJson(data);
     }
