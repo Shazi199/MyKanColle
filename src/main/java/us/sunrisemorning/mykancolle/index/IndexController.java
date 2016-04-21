@@ -39,6 +39,11 @@ public class IndexController extends Controller {
         String userName = getPara("userName");
         String userPass = getPara("userPass");
 
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(userPass)) {
+            redirect("/regPage");
+            return;
+        }
+
         User u = User.dao.findFirst("select id from User where userName=?", userName);
         if (u != null) {
             redirect("/regPage");
