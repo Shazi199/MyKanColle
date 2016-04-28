@@ -57,7 +57,7 @@
   			<configuration>
   			   <source>${JDK_VERSION}</source>
   			   <target>${JDK_VERSION}</target>
-      		   <encoding>utf8</encoding>
+  			   <encoding>utf8</encoding>
   			</configuration>
   		</plugin>
   	</plugins>

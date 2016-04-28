@@ -1,4 +1,4 @@
 #MyKanColle
-目前版本：ShimakazeGo_KanColle_cache_20160402.7z
+目前版本：ShimakazeGo_KanColle_cache_20160427.7z
 
-http://pan.baidu.com/s/1eRIO3g2
+http://pan.baidu.com/s/1nuOHbi5
